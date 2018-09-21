@@ -8,34 +8,45 @@ class Room
     @money = money
     @guests = []
     @songs = []
+    @cover = 23
   end
 
-  def add_guest(guest)
-    @guests << guest
+  # def add_guest(guest)
+  #   @guests << guest
+  # end
+
+
+  def add_guests(*guest)
+
+    guests_to_add = []
+
+    #if guests money is > cover, proceed
+    # for gus in guest
+    #   if gus.money >= @cover
+    #
+    #
+    #
+        guest.each { |g| guests_to_add << g }
+        # guests_to_check_money.each { |g| guests_to_add if g.money >= @cover}
+        if @capacity - @guests.count >= guests_to_add.count
+          @guests.concat(guests_to_add)
+          guest.each { |g| charge_guest(g, @cover)}
+        else
+          return "Sorry, there is not enough space in the room!"
+        end
+    #   else
+    #     return "Not enough money ya div"
+    #   end
+    # end
   end
 
-  def add_multiple_guests(*guest)
-    #create empty array
-    guest.each { |g| @guests << g }
-    #add each to arry
-    #if capacity - guests.length >= empty arry
-      #add array to @guests 
-  end
 
-  #chuffed I got that bit in
-  #shorteened a for loop
-  #nice job iain
 
-  def add_song(song)
-    @songs << song
-  end
-
-  def add_multiple_songs(*song)
+  def add_songs(*song)
     song.each {|s| @songs.push(s)}
   end
 
-  #############i could make these 1 method
-  ###when i am comfortable!
+
 
   def list_songs()
     @songs.each_with_index do |song, index|
@@ -43,11 +54,6 @@ class Room
     end
   end
 
-  #charge guest amount
-  #if guest money > amount
-    #remove amount from guest money
-    #add amount to room money
-  #else return "not enough money"
 
   def charge_guest(guest, amount)
     if guest.money >= amount
@@ -57,5 +63,14 @@ class Room
       return "#{guest.name} does not have enough money!"
     end
   end
+
+  #for guest in @guests, return "#{guest.name}, ""
+  def list_guests()
+    name_array = []
+    @guests.each {|g| name_array << g.name}
+    return name_array
+  end
+
+
 
 end
